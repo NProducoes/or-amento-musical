@@ -1,1 +1,575 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>NUNES PRODUÇÕES - Sistema de Orçamento Musical</title>
+<!-- Tailwind + Font Awesome + Google Fonts -->
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<style>
+  * { font-family: 'Inter', sans-serif; }
+  body {
+    background: linear-gradient(135deg, #0a2f1f 0%, #1a3a2a 100%);
+    min-height: 100vh;
+    padding: 2rem 1rem;
+  }
+  .glass-card {
+    background: rgba(255, 255, 255, 0.98);
+    border-radius: 2rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s ease;
+  }
+  .input-modern {
+    transition: all 0.2s ease;
+    background-color: #fafaf9;
+    border: 1.5px solid #d6d3d1;
+    border-radius: 1rem;
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+  }
+  .input-modern:focus {
+    outline: none;
+    border-color: #15803d;
+    box-shadow: 0 0 0 3px rgba(21, 128, 61, 0.2);
+    background-color: white;
+  }
+  .btn-pdf {
+    background: linear-gradient(95deg, #2d2d2d, #1a1a1a);
+    border: 1px solid #3f3f3f;
+  }
+  .btn-pdf:hover {
+    background: linear-gradient(95deg, #3f3f3f, #2d2d2d);
+    transform: translateY(-2px);
+  }
+  .btn-wa {
+    background: linear-gradient(95deg, #25D366, #128C7E);
+  }
+  .btn-wa:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 20px -10px #25D366;
+  }
+  .btn-response {
+    background: linear-gradient(95deg, #15803d, #166534);
+  }
+  .btn-response:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 20px -10px #15803d;
+  }
+  .tag-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 0.5rem;
+  }
+  .tag-check {
+    position: relative;
+    cursor: pointer;
+  }
+  .tag-check input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+  .tag-check span {
+    display: inline-block;
+    padding: 0.5rem 1.2rem;
+    background: #f1f5f9;
+    border-radius: 40px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.2s;
+    border: 1px solid #e2e8f0;
+    color: #1e293b;
+  }
+  .tag-check input:checked + span {
+    background: #15803d;
+    border-color: #15803d;
+    color: white;
+    box-shadow: 0 4px 10px rgba(21, 128, 61, 0.3);
+  }
+  .section-title {
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+    color: #0f2b1a;
+    border-left: 5px solid #15803d;
+    padding-left: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .resumo-card {
+    background: linear-gradient(110deg, #f0fdf4, #ecfdf5);
+    border-radius: 1.25rem;
+    border-left: 6px solid #15803d;
+  }
+  .response-card {
+    background: linear-gradient(110deg, #fef9e3, #fff7e6);
+    border-radius: 1.25rem;
+    border-left: 6px solid #f59e0b;
+  }
+  @media print {
+    body { background: white; padding: 0; margin: 0; }
+    .no-print { display: none !important; }
+    .glass-card { box-shadow: none; margin: 0; padding: 1rem; }
+  }
+</style>
+</head>
+<body>
 
+<div class="max-w-6xl mx-auto">
+  <!-- Header -->
+  <div class="text-center mb-6 no-print">
+    <div class="inline-flex items-center justify-center bg-white/10 backdrop-blur-sm rounded-full px-6 py-3 mb-3 shadow-lg">
+      <i class="fas fa-music text-green-400 text-3xl mr-3"></i>
+      <span class="text-3xl md:text-4xl font-extrabold tracking-tight text-white">NUNES <span class="text-green-300">PRODUÇÕES</span></span>
+    </div>
+    <p class="text-green-100 text-sm mt-2 font-medium">🎵 Sistema completo de orçamento | Solicite e responda propostas</p>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <!-- COLUNA ESQUERDA: FORMULÁRIO DO CLIENTE -->
+    <div class="glass-card p-6 md:p-7 shadow-2xl no-print">
+      <div class="flex items-center gap-3 border-b border-gray-200 pb-4 mb-4">
+        <i class="fas fa-user-plus text-green-700 text-2xl"></i>
+        <h2 class="text-2xl font-bold text-gray-800">1. Dados do Cliente</h2>
+      </div>
+      
+      <form id="formOrcamento" class="space-y-5">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-1"><i class="fas fa-user mr-1 text-green-700"></i> Nome *</label>
+            <input type="text" name="nome" required placeholder="Ex: Ana Clara Santos" class="input-modern w-full">
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-1"><i class="fas fa-phone-alt mr-1 text-green-700"></i> Celular</label>
+            <input type="text" name="celular" placeholder="(71) 99999-9999" class="input-modern w-full">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-1"><i class="fab fa-whatsapp mr-1 text-green-600"></i> WhatsApp *</label>
+            <input type="text" name="whatsapp" required placeholder="(71) 99999-9999" class="input-modern w-full">
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-1"><i class="fas fa-envelope mr-1 text-green-700"></i> E-mail</label>
+            <input type="email" name="email" placeholder="cliente@email.com" class="input-modern w-full">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-1"><i class="fas fa-calendar-alt mr-1 text-green-700"></i> Data do Evento</label>
+            <input type="date" name="data_do_evento" class="input-modern w-full">
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-1"><i class="fas fa-clock mr-1 text-green-700"></i> Hora do Evento</label>
+            <input type="time" name="hora_do_evento" class="input-modern w-full">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-1"><i class="fas fa-map-marker-alt mr-1 text-green-700"></i> Local do evento</label>
+          <input type="text" name="local" placeholder="Nome do espaço / Salão / Clube" class="input-modern w-full">
+        </div>
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-1"><i class="fas fa-location-dot mr-1 text-green-700"></i> Endereço completo</label>
+          <input type="text" name="endereco" placeholder="Rua, número, bairro, cidade" class="input-modern w-full">
+        </div>
+
+        <div>
+          <div class="section-title"><i class="fas fa-users text-green-700"></i> Formação Musical</div>
+          <div class="tag-group">
+            <label class="tag-check"><input type="checkbox" name="formacao" value="DUO"><span>🎸 DUO</span></label>
+            <label class="tag-check"><input type="checkbox" name="formacao" value="TRIO"><span>🎤 TRIO</span></label>
+            <label class="tag-check"><input type="checkbox" name="formacao" value="QUARTETO"><span>🎻 QUARTETO</span></label>
+            <label class="tag-check"><input type="checkbox" name="formacao" value="BANDA"><span>🥁 BANDA</span></label>
+            <label class="tag-check"><input type="checkbox" name="formacao" value="OUTRO"><span>✨ OUTRO</span></label>
+          </div>
+        </div>
+
+        <div>
+          <div class="section-title"><i class="fas fa-headphones text-green-700"></i> Estilos Musicais</div>
+          <div class="tag-group">
+            <label class="tag-check"><input type="checkbox" name="estilos" value="SAMBA"><span>SAMBA</span></label>
+            <label class="tag-check"><input type="checkbox" name="estilos" value="FORRÓ"><span>FORRÓ</span></label>
+            <label class="tag-check"><input type="checkbox" name="estilos" value="MPB"><span>MPB</span></label>
+            <label class="tag-check"><input type="checkbox" name="estilos" value="BOSSA"><span>BOSSA</span></label>
+            <label class="tag-check"><input type="checkbox" name="estilos" value="DISCO"><span>DISCO</span></label>
+            <label class="tag-check"><input type="checkbox" name="estilos" value="ELETRÔNICA"><span>ELETRÔNICA</span></label>
+            <label class="tag-check"><input type="checkbox" name="estilos" value="ROCK"><span>ROCK</span></label>
+            <label class="tag-check"><input type="checkbox" name="estilos" value="GOSPEL"><span>GOSPEL</span></label>
+            <label class="tag-check"><input type="checkbox" name="estilos" value="OUTRO"><span>OUTRO</span></label>
+          </div>
+        </div>
+
+        <div>
+          <div class="section-title"><i class="fas fa-microphone-alt text-green-700"></i> Serviços Extras</div>
+          <div class="tag-group">
+            <label class="tag-check"><input type="checkbox" name="servicos" value="SONORIZAÇÃO"><span>🔊 SONORIZAÇÃO</span></label>
+            <label class="tag-check"><input type="checkbox" name="servicos" value="PALCO"><span>🏗️ PALCO</span></label>
+            <label class="tag-check"><input type="checkbox" name="servicos" value="ILUMINAÇÃO"><span>💡 ILUMINAÇÃO</span></label>
+            <label class="tag-check"><input type="checkbox" name="servicos" value="DJ"><span>🎧 DJ</span></label>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-1"><i class="fas fa-pen-fancy mr-1 text-green-700"></i> Observações do Cliente</label>
+          <textarea name="observacao" rows="2" placeholder="Repertório especial, necessidades específicas..." class="input-modern w-full resize-none"></textarea>
+        </div>
+
+        <button type="button" onclick="enviarSolicitacao()" class="btn-wa text-white font-bold px-6 py-3 rounded-xl shadow-md transition-all w-full flex items-center justify-center gap-2"><i class="fab fa-whatsapp text-xl"></i> Enviar Solicitação para NUNES PRODUÇÕES</button>
+        <p class="text-xs text-gray-500 text-center"><i class="fas fa-shield-alt text-green-600"></i> Sua solicitação será enviada para nossa equipe</p>
+      </form>
+    </div>
+
+    <!-- COLUNA DIREITA: RESPOSTA DO ORÇAMENTO -->
+    <div class="glass-card p-6 md:p-7 shadow-2xl no-print">
+      <div class="flex items-center gap-3 border-b border-gray-200 pb-4 mb-4">
+        <i class="fas fa-reply-all text-amber-600 text-2xl"></i>
+        <h2 class="text-2xl font-bold text-gray-800">2. Resposta do Orçamento</h2>
+      </div>
+      
+      <div class="space-y-5">
+        <div class="bg-amber-50 p-4 rounded-xl text-sm">
+          <i class="fas fa-info-circle text-amber-600 mr-2"></i>
+          <span class="text-gray-700">Preencha os campos abaixo com a proposta comercial e clique em "Enviar Proposta ao Cliente"</span>
+        </div>
+        
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-1"><i class="fas fa-tag text-green-700"></i> Valor do Pacote (R$)</label>
+          <input type="text" id="valor_proposta" placeholder="Ex: R$ 2.500,00" class="input-modern w-full">
+        </div>
+        
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-1"><i class="fas fa-clock text-green-700"></i> Prazo para Confirmação</label>
+          <input type="text" id="prazo_confirmacao" placeholder="Ex: 5 dias úteis" class="input-modern w-full">
+        </div>
+        
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-1"><i class="fas fa-hand-holding-usd text-green-700"></i> Condições de Pagamento</label>
+          <textarea id="condicoes_pagamento" rows="2" placeholder="Ex: 50% de sinal, restante no dia do evento" class="input-modern w-full resize-none"></textarea>
+        </div>
+        
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-1"><i class="fas fa-list-check text-green-700"></i> Itens Inclusos na Proposta</label>
+          <textarea id="itens_inclusos" rows="3" placeholder="• Formação musical escolhida&#10;• Sonorização profissional&#10;• Repertório personalizado&#10;• Intervalo de 15min a cada 2h" class="input-modern w-full resize-none"></textarea>
+        </div>
+        
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-1"><i class="fas fa-file-signature text-green-700"></i> Observações da Proposta</label>
+          <textarea id="obs_proposta" rows="2" placeholder="Informações adicionais para o cliente..." class="input-modern w-full resize-none"></textarea>
+        </div>
+        
+        <div class="grid grid-cols-2 gap-3 pt-3">
+          <button type="button" onclick="gerarPDFResposta()" class="btn-pdf text-white font-semibold px-4 py-3 rounded-xl shadow-md transition-all flex items-center justify-center gap-2"><i class="fas fa-file-pdf text-lg"></i> Gerar PDF</button>
+          <button type="button" onclick="enviarPropostaCliente()" class="btn-response text-white font-bold px-4 py-3 rounded-xl shadow-md transition-all flex items-center justify-center gap-2"><i class="fab fa-whatsapp text-xl"></i> Enviar Proposta</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ÁREA DE PRÉVIA DO ORÇAMENTO (Visualização) -->
+  <div class="glass-card p-6 md:p-7 shadow-2xl mt-8">
+    <div class="flex items-center gap-3 border-b border-gray-200 pb-4 mb-4">
+      <i class="fas fa-eye text-green-700 text-xl"></i>
+      <h2 class="text-xl font-bold text-gray-800">Prévia da Proposta</h2>
+      <span class="text-xs bg-gray-100 px-3 py-1 rounded-full">Visualização em tempo real</span>
+    </div>
+    <div id="previewCompleta" class="space-y-4 max-h-[500px] overflow-y-auto">
+      <div class="text-center text-gray-400 py-8">
+        <i class="fas fa-file-alt text-4xl opacity-40 mb-2"></i>
+        <p>Preencha os dados do cliente e a resposta do orçamento<br>para visualizar a proposta completa</p>
+      </div>
+    </div>
+    <div class="mt-4 pt-3 border-t border-gray-200 flex justify-end no-print">
+      <button onclick="gerarPDFResposta()" class="bg-gray-800 hover:bg-black text-white text-sm px-5 py-2 rounded-full flex items-center gap-2 transition"><i class="fas fa-print"></i> Imprimir / PDF</button>
+    </div>
+  </div>
+
+  <!-- Rodapé -->
+  <div class="text-center text-white/80 text-sm mt-6 no-print border-t border-green-700/30 pt-5">
+    <i class="fas fa-phone-alt mr-1"></i> <strong class="text-green-300">NUNES PRODUÇÕES</strong> | WhatsApp: (71) 98189-5439
+  </div>
+</div>
+
+<script>
+  // Obter dados do cliente
+  function getClienteData() {
+    const form = document.getElementById('formOrcamento');
+    return {
+      nome: form.nome?.value || '',
+      celular: form.celular?.value || '',
+      whatsapp: form.whatsapp?.value || '',
+      email: form.email?.value || '',
+      data_do_evento: form.data_do_evento?.value || '',
+      hora_do_evento: form.hora_do_evento?.value || '',
+      local: form.local?.value || '',
+      endereco: form.endereco?.value || '',
+      observacao: form.observacao?.value || '',
+      formacao: Array.from(form.querySelectorAll('input[name="formacao"]:checked')).map(cb => cb.value),
+      estilos: Array.from(form.querySelectorAll('input[name="estilos"]:checked')).map(cb => cb.value),
+      servicos: Array.from(form.querySelectorAll('input[name="servicos"]:checked')).map(cb => cb.value)
+    };
+  }
+  
+  // Obter dados da proposta
+  function getPropostaData() {
+    return {
+      valor: document.getElementById('valor_proposta')?.value || '',
+      prazo: document.getElementById('prazo_confirmacao')?.value || '',
+      condicoes: document.getElementById('condicoes_pagamento')?.value || '',
+      itens: document.getElementById('itens_inclusos')?.value || '',
+      obs: document.getElementById('obs_proposta')?.value || ''
+    };
+  }
+  
+  // Atualizar prévia
+  function updatePreviewCompleta() {
+    const cliente = getClienteData();
+    const proposta = getPropostaData();
+    const previewDiv = document.getElementById('previewCompleta');
+    
+    if (!cliente.nome && !proposta.valor) {
+      previewDiv.innerHTML = `<div class="text-center text-gray-400 py-8"><i class="fas fa-file-alt text-4xl opacity-40 mb-2"></i><p>Preencha os dados do cliente e a resposta do orçamento<br>para visualizar a proposta completa</p></div>`;
+      return;
+    }
+    
+    let dataFormatada = cliente.data_do_evento;
+    if (dataFormatada) {
+      const [ano, mes, dia] = dataFormatada.split('-');
+      dataFormatada = `${dia}/${mes}/${ano}`;
+    }
+    
+    let html = `
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+        <div class="bg-gradient-to-r from-green-700 to-green-800 text-white p-4">
+          <h2 class="text-xl font-bold">NUNES PRODUÇÕES</h2>
+          <p class="text-green-100 text-sm">Orçamento Musical Profissional</p>
+        </div>
+        
+        <div class="p-5 space-y-5">
+          <div class="grid grid-cols-2 gap-4 border-b pb-3">
+            <div><span class="text-gray-500 text-sm">CLIENTE</span><br><span class="font-semibold">${escapeHtml(cliente.nome) || '—'}</span></div>
+            <div><span class="text-gray-500 text-sm">CONTATO</span><br><span class="font-semibold">${escapeHtml(cliente.whatsapp) || '—'}</span></div>
+            ${cliente.email ? `<div><span class="text-gray-500 text-sm">E-MAIL</span><br><span>${escapeHtml(cliente.email)}</span></div>` : ''}
+            ${cliente.celular ? `<div><span class="text-gray-500 text-sm">CELULAR</span><br><span>${escapeHtml(cliente.celular)}</span></div>` : ''}
+          </div>
+          
+          <div class="border-b pb-3">
+            <h3 class="font-bold text-green-700 mb-2"><i class="fas fa-calendar"></i> INFORMAÇÕES DO EVENTO</h3>
+            <div class="grid grid-cols-2 gap-2 text-sm">
+              <div><span class="text-gray-500">Data:</span> ${dataFormatada || '—'}</div>
+              <div><span class="text-gray-500">Hora:</span> ${escapeHtml(cliente.hora_do_evento) || '—'}</div>
+              <div class="col-span-2"><span class="text-gray-500">Local:</span> ${escapeHtml(cliente.local) || '—'}</div>
+              <div class="col-span-2"><span class="text-gray-500">Endereço:</span> ${escapeHtml(cliente.endereco) || '—'}</div>
+            </div>
+          </div>
+          
+          <div class="border-b pb-3">
+            <h3 class="font-bold text-green-700 mb-2"><i class="fas fa-music"></i> SOLICITAÇÃO DO CLIENTE</h3>
+            ${cliente.formacao.length ? `<p><span class="text-gray-500">Formação:</span> ${cliente.formacao.join(', ')}</p>` : ''}
+            ${cliente.estilos.length ? `<p><span class="text-gray-500">Estilos:</span> ${cliente.estilos.join(', ')}</p>` : ''}
+            ${cliente.servicos.length ? `<p><span class="text-gray-500">Serviços Extras:</span> ${cliente.servicos.join(', ')}</p>` : ''}
+            ${cliente.observacao ? `<p class="mt-2"><span class="text-gray-500">Obs.:</span> ${escapeHtml(cliente.observacao)}</p>` : ''}
+          </div>
+          
+          <div class="bg-amber-50 p-4 rounded-lg">
+            <h3 class="font-bold text-amber-700 mb-3"><i class="fas fa-handshake"></i> PROPOSTA COMERCIAL</h3>
+            ${proposta.valor ? `<p class="text-2xl font-bold text-green-700 mb-2">${escapeHtml(proposta.valor)}</p>` : ''}
+            ${proposta.prazo ? `<p><span class="font-semibold">📅 Prazo para confirmação:</span> ${escapeHtml(proposta.prazo)}</p>` : ''}
+            ${proposta.condicoes ? `<p><span class="font-semibold">💰 Condições de pagamento:</span><br>${escapeHtml(proposta.condicoes)}</p>` : ''}
+            ${proposta.itens ? `<p class="mt-2"><span class="font-semibold">🎯 Itens inclusos:</span><br>${escapeHtml(proposta.itens).replace(/\n/g, '<br>')}</p>` : ''}
+            ${proposta.obs ? `<p class="mt-2 text-gray-600 italic">📌 ${escapeHtml(proposta.obs)}</p>` : ''}
+          </div>
+          
+          <div class="text-center text-xs text-gray-400 pt-2">
+            NUNES PRODUÇÕES - (71) 98189-5439<br>
+            Proposta válida conforme condições acima
+          </div>
+        </div>
+      </div>
+    `;
+    
+    previewDiv.innerHTML = html;
+  }
+  
+  function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/[&<>]/g, function(m) {
+      if (m === '&') return '&amp;';
+      if (m === '<') return '&lt;';
+      if (m === '>') return '&gt;';
+      return m;
+    });
+  }
+  
+  // Enviar solicitação para a empresa (admin)
+  function enviarSolicitacao() {
+    const cliente = getClienteData();
+    if (!cliente.nome.trim() || !cliente.whatsapp.trim()) {
+      alert('⚠️ Por favor, preencha Nome e WhatsApp do cliente.');
+      return;
+    }
+    
+    let msg = '🎵 *NOVA SOLICITAÇÃO DE ORÇAMENTO* 🎵%0A';
+    msg += '─────────────────────────%0A';
+    msg += `*👤 Cliente:* ${cliente.nome}%0A`;
+    msg += `*📱 WhatsApp:* ${cliente.whatsapp}%0A`;
+    if (cliente.celular) msg += `*📞 Celular:* ${cliente.celular}%0A`;
+    if (cliente.email) msg += `*✉️ Email:* ${cliente.email}%0A`;
+    
+    let dataEvento = cliente.data_do_evento ? cliente.data_do_evento.split('-').reverse().join('/') : '—';
+    msg += `*📅 Data:* ${dataEvento}%0A`;
+    msg += `*⏰ Hora:* ${cliente.hora_do_evento || '—'}%0A`;
+    msg += `*📍 Local:* ${cliente.local || '—'}%0A`;
+    msg += `*🏠 Endereço:* ${cliente.endereco || '—'}%0A`;
+    msg += `%0A*🎸 Formação:* ${cliente.formacao.length ? cliente.formacao.join(', ') : '—'}%0A`;
+    msg += `*🎧 Estilos:* ${cliente.estilos.length ? cliente.estilos.join(', ') : '—'}%0A`;
+    msg += `*🔧 Serviços:* ${cliente.servicos.length ? cliente.servicos.join(', ') : '—'}%0A`;
+    if (cliente.observacao) msg += `%0A*📝 Obs:* ${cliente.observacao}%0A`;
+    
+    msg += `─────────────────────────%0A`;
+    msg += `✅ Responda pelo sistema ou entre em contato`;
+    
+    const numeroEmpresa = '5571981895439';
+    window.open(`https://wa.me/${numeroEmpresa}?text=${msg}`, '_blank');
+  }
+  
+  // Enviar proposta para o cliente
+  function enviarPropostaCliente() {
+    const cliente = getClienteData();
+    const proposta = getPropostaData();
+    
+    if (!cliente.nome.trim() || !cliente.whatsapp.trim()) {
+      alert('⚠️ Preencha os dados do cliente na seção da esquerda antes de enviar a proposta.');
+      return;
+    }
+    
+    if (!proposta.valor && !proposta.itens) {
+      if (!confirm('Você não preencheu valor ou itens inclusos. Deseja enviar mesmo assim?')) return;
+    }
+    
+    let msg = '🎵 *NUNES PRODUÇÕES - PROPOSTA MUSICAL* 🎵%0A';
+    msg += '─────────────────────────%0A';
+    msg += `*Olá ${cliente.nome.split(' ')[0]}*, agradecemos seu contato!%0A%0A`;
+    msg += `*📋 SUA SOLICITAÇÃO:*%0A`;
+    msg += `📅 Data: ${cliente.data_do_evento ? cliente.data_do_evento.split('-').reverse().join('/') : '—'}%0A`;
+    msg += `📍 Local: ${cliente.local || '—'}%0A`;
+    msg += `🎸 Formação: ${cliente.formacao.length ? cliente.formacao.join(', ') : '—'}%0A%0A`;
+    
+    msg += `*💰 PROPOSTA COMERCIAL:*%0A`;
+    if (proposta.valor) msg += `💵 *Valor:* ${proposta.valor}%0A`;
+    if (proposta.prazo) msg += `⏱️ *Prazo confirmação:* ${proposta.prazo}%0A`;
+    if (proposta.condicoes) msg += `💳 *Pagamento:* ${proposta.condicoes}%0A`;
+    if (proposta.itens) msg += `%0A*✅ ITENS INCLUSOS:*%0A${proposta.itens}%0A`;
+    if (proposta.obs) msg += `%0A*📌 OBSERVAÇÕES:*%0A${proposta.obs}%0A`;
+    
+    msg += `%0A─────────────────────────%0A`;
+    msg += `*NUNES PRODUÇÕES*%0A`;
+    msg += `📞 Contato: (71) 98189-5439%0A`;
+    msg += `💬 Estamos à disposição para mais detalhes!`;
+    
+    const numeroCliente = cliente.whatsapp.replace(/\D/g, '');
+    if (!numeroCliente) {
+      alert('WhatsApp do cliente inválido. Por favor, preencha corretamente.');
+      return;
+    }
+    
+    const numeroFormatado = numeroCliente.length === 11 ? `55${numeroCliente}` : numeroCliente;
+    window.open(`https://wa.me/${numeroFormatado}?text=${msg}`, '_blank');
+  }
+  
+  // Gerar PDF da proposta completa
+  async function gerarPDFResposta() {
+    const cliente = getClienteData();
+    const proposta = getPropostaData();
+    
+    if (!cliente.nome) {
+      alert('Preencha pelo menos o nome do cliente antes de gerar o PDF.');
+      return;
+    }
+    
+    let dataFormatada = cliente.data_do_evento;
+    if (dataFormatada) {
+      const [ano, mes, dia] = dataFormatada.split('-');
+      dataFormatada = `${dia}/${mes}/${ano}`;
+    }
+    
+    const pdfContainer = document.createElement('div');
+    pdfContainer.style.backgroundColor = 'white';
+    pdfContainer.style.padding = '2rem';
+    pdfContainer.style.fontFamily = "'Inter', sans-serif";
+    pdfContainer.style.maxWidth = '800px';
+    pdfContainer.style.margin = '0 auto';
+    pdfContainer.innerHTML = `
+      <div style="text-align: center; margin-bottom: 25px; border-bottom: 3px solid #15803d; padding-bottom: 15px;">
+        <h1 style="color: #0f3b22; font-size: 28px; margin-bottom: 5px;">🎵 NUNES PRODUÇÕES</h1>
+        <p style="color: #2d6a4f; font-weight: 500;">Orçamento Musical Profissional</p>
+        <p style="color: #6c757d; font-size: 12px;">(71) 98189-5439</p>
+      </div>
+      
+      <div style="margin-bottom: 20px;">
+        <h2 style="font-size: 1.2rem; color: #15803d; border-left: 4px solid #15803d; padding-left: 12px;">Dados do Cliente</h2>
+        <div style="background: #f9fafb; padding: 12px; border-radius: 12px; margin-top: 10px;">
+          <p><strong>Nome:</strong> ${escapeHtml(cliente.nome)}</p>
+          <p><strong>WhatsApp:</strong> ${escapeHtml(cliente.whatsapp)}</p>
+          ${cliente.email ? `<p><strong>E-mail:</strong> ${escapeHtml(cliente.email)}</p>` : ''}
+        </div>
+      </div>
+      
+      <div style="margin-bottom: 20px;">
+        <h2 style="font-size: 1.2rem; color: #15803d; border-left: 4px solid #15803d; padding-left: 12px;">Evento</h2>
+        <div style="background: #f9fafb; padding: 12px; border-radius: 12px; margin-top: 10px;">
+          <p><strong>Data:</strong> ${dataFormatada || '—'}</p>
+          <p><strong>Hora:</strong> ${escapeHtml(cliente.hora_do_evento) || '—'}</p>
+          <p><strong>Local:</strong> ${escapeHtml(cliente.local) || '—'}</p>
+          <p><strong>Formação:</strong> ${cliente.formacao.length ? cliente.formacao.join(', ') : '—'}</p>
+        </div>
+      </div>
+      
+      <div style="margin-bottom: 20px; background: #fef9e3; padding: 16px; border-radius: 16px;">
+        <h2 style="font-size: 1.2rem; color: #b45309; margin-bottom: 10px;">💰 PROPOSTA COMERCIAL</h2>
+        ${proposta.valor ? `<p style="font-size: 24px; font-weight: bold; color: #15803d;">${escapeHtml(proposta.valor)}</p>` : ''}
+        ${proposta.prazo ? `<p><strong>Prazo para confirmação:</strong> ${escapeHtml(proposta.prazo)}</p>` : ''}
+        ${proposta.condicoes ? `<p><strong>Condições de pagamento:</strong><br>${escapeHtml(proposta.condicoes)}</p>` : ''}
+        ${proposta.itens ? `<p><strong>Itens inclusos:</strong><br>${escapeHtml(proposta.itens).replace(/\n/g, '<br>')}</p>` : ''}
+        ${proposta.obs ? `<p><strong>Observações:</strong><br>${escapeHtml(proposta.obs)}</p>` : ''}
+      </div>
+      
+      <div style="text-align: center; font-size: 11px; color: #6c757d; border-top: 1px solid #e9ecef; padding-top: 15px; margin-top: 20px;">
+        Documento gerado em ${new Date().toLocaleString('pt-BR')}<br>
+        NUNES PRODUÇÕES - (71) 98189-5439
+      </div>
+    `;
+    
+    const opt = {
+      margin: [0.5, 0.5, 0.5, 0.5],
+      filename: `proposta_nunes_${cliente.nome.replace(/\s/g, '_')}.pdf`,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+    };
+    html2pdf().set(opt).from(pdfContainer).save();
+  }
+  
+  // Event listeners para atualizar prévia
+  const formInputs = document.querySelectorAll('#formOrcamento input, #formOrcamento textarea, #valor_proposta, #prazo_confirmacao, #condicoes_pagamento, #itens_inclusos, #obs_proposta');
+  formInputs.forEach(input => {
+    input.addEventListener('input', updatePreviewCompleta);
+    input.addEventListener('change', updatePreviewCompleta);
+  });
+  
+  const checkGroups = ['formacao', 'estilos', 'servicos'];
+  checkGroups.forEach(group => {
+    document.querySelectorAll(`input[name="${group}"]`).forEach(ch => ch.addEventListener('change', updatePreviewCompleta));
+  });
+  
+  updatePreviewCompleta();
+</script>
+</body>
+</html>
