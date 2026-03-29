@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>NUNES PRODUÇÕES - Orçamento Musical</title>
+<!-- Tailwind + Font Awesome + Google Fonts -->
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<style>
+  * { font-family: 'Inter', sans-serif; }
+  body {
+    background: linear-gradient(135deg, #0a2f1f 0%, #1a3a2a 100%);
+    min-height: 100vh;
+    padding: 2rem 1rem;
+  }
+  .glass-card {
+    background: rgba(255, 255, 255, 0.98);
+    border-radius: 2rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s ease;
+  }
+  .input-modern {
+    transition: all 0.2s ease;
+    background-color: #fafaf9;
+    border: 1.5px solid #d6d3d1;
+    border-radius: 1rem;
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+  }
+  .input-modern:focus {
+    outline: none;
+    border-color: #15803d;
+    box-shadow: 0 0 0 3px rgba(21, 128, 61, 0.2);
+    background-color: white;
+  }
+  .btn-grad {
+    background: linear-gradient(95deg, #15803d, #166534);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .btn-grad:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 20px -10px rgba(21, 128, 61, 0.5);
+  }
+  .btn-pdf {
+    background: linear-gradient(95deg, #2d2d2d, #1a1a1a);
+    border: 1px solid #3f3f3f;
+  }
+  .btn-pdf:hover {
+    background: linear-gradient(95deg, #3f3f3f, #2d2d2d);
+    transform: translateY(-2px);
+  }
+  .btn-wa {
+    background: linear-gradient(95deg, #25D366, #128C7E);
+  }
+  .btn-wa:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 20px -10px #25D366;
+  }
+  .tag-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 0.5rem;
+  }
+  .tag-check {
+    position: relative;
+    cursor: pointer;
+  }
+  .tag-check input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+  .tag-check span {
+    display: inline-block;
+    padding: 0.5rem 1.2rem;
+    background: #f1f5f9;
+    border-radius: 40px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.2s;
+    border: 1px solid #e2e8f0;
+    color: #1e293b;
+  }
+  .tag-check input:checked + span {
+    background: #15803d;
+    border-color: #15803d;
+    color: white;
+    box-shadow: 0 4px 10px rgba(21, 128, 61, 0.3);
+  }
+  .section-title {
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+    color: #0f2b1a;
+    border-left: 5px solid #15803d;
+    padding-left: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .resumo-card {
+    background: linear-gradient(110deg, #f0fdf4, #ecfdf5);
+    border-radius: 1.25rem;
+    border-left: 6px solid #15803d;
+  }
+  @media print {
+    body {
+      background: white;
+      padding: 0;
+      margin: 0;
+    }
+    .no-print {
+      display: none !important;
+    }
+    .glass-card {
+      box-shadow: none;
+      margin: 0;
+      padding: 1rem;
+    }
+  }
+  hr {
+    margin: 1rem 0;
+  }
+  .bg-brand-green {
+    background: linear-gradient(135deg, #0f3b22 0%, #0a2f1a 100%);
+  }
+  .text-brand-green {
+    color: #15803d;
+  }
+  .border-brand-green {
+    border-color: #15803d;
+  }
+</style>
+</head>
+<body>
+
+<div class="max-w-5xl mx-auto">
+  <!-- Header com logo e identidade NUNES PRODUÇÕES - sem coroa -->
+  <div class="text-center mb-6 no-print">
+    <div class="inline-flex items-center justify-center bg-white/10 backdrop-blur-sm rounded-full px-6 py-3 mb-3 shadow-lg">
+      <i class="fas fa-music text-green-400 text-3xl mr-3"></i>
+      <span class="text-3xl md:text-4xl font-extrabold tracking-tight text-white">NUNES <span class="text-green-300">PRODUÇÕES</span></span>
+    </div>
+    <p class="text-green-100 text-sm mt-2 font-medium">🎵 Orçamento Musical Para Eventos | NP Sonhando junto com você</p>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <!-- COLUNA ESQUERDA: FORMULÁRIO MODERNO (VERDE, PRETO, BRANCO) -->
+    <div class="glass-card p-6 md:p-7 shadow-2xl no-print">
+      <div class="flex items-center gap-3 border-b border-gray-200 pb-4 mb-4">
+        <i class="fas fa-file-alt text-green-700 text-2xl"></i>
+        <h2 class="text-2xl font-bold text-gray-800">Solicite seu Orçamento</h2>
+      </div>
+      
+      <form id="formOrcamento" class="space-y-5">
+        <!-- Linha nome + contato -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-1"><i class="fas fa-user mr-1 text-green-700"></i> Nome *</label>
+            <input type="text" name="nome" required placeholder="Ex: Ana Clara Santos" class="input-modern w-full">
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-1"><i class="fas fa-phone-alt mr-1 text-green-700"></i> Celular</label>
+            <input type="text" name="celular" placeholder="(71) 99999-9999" class="input-modern w-full">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-1"><i class="fab fa-whatsapp mr-1 text-green-600"></i> WhatsApp</label>
+            <input type="text" name="whatsapp" placeholder="Número com DDD" class="input-modern w-full">
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-1"><i class="fas fa-envelope mr-1 text-green-700"></i> E-mail</label>
+            <input type="email" name="email" placeholder="cliente@email.com" class="input-modern w-full">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-1"><i class="fas fa-calendar-alt mr-1 text-green-700"></i> Data do Evento</label>
+            <input type="date" name="data_do_evento" class="input-modern w-full">
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-1"><i class="fas fa-clock mr-1 text-green-700"></i> Hora do Evento</label>
+            <input type="time" name="hora_do_evento" class="input-modern w-full">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-1"><i class="fas fa-map-marker-alt mr-1 text-green-700"></i> Local do evento</label>
+          <input type="text" name="local" placeholder="Nome do espaço / Salão / Clube" class="input-modern w-full">
+        </div>
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-1"><i class="fas fa-location-dot mr-1 text-green-700"></i> Endereço completo</label>
+          <input type="text" name="endereco" placeholder="Rua, número, bairro, cidade" class="input-modern w-full">
+        </div>
+
+        <!-- Formação Musical (tags verdes) -->
+        <div>
+          <div class="section-title"><i class="fas fa-users text-green-700"></i> Formação Musical</div>
+          <div class="tag-group" id="formacao-group">
+            <label class="tag-check"><input type="checkbox" name="formacao" value="DUO"><span>🎸 DUO</span></label>
+            <label class="tag-check"><input type="checkbox" name="formacao" value="TRIO"><span>🎤 TRIO</span></label>
+            <label class="tag-check"><input type="checkbox" name="formacao" value="QUARTETO"><span>🎻 QUARTETO</span></label>
+            <label class="tag-check"><input type="checkbox" name="formacao" value="BANDA"><span>🥁 BANDA</span></label>
+            <label class="tag-check"><input type="checkbox" name="formacao" value="OUTRO"><span>✨ OUTRO</span></label>
+          </div>
+        </div>
+
+        <!-- Estilos Musicais -->
+        <div>
+          <div class="section-title"><i class="fas fa-headphones text-green-700"></i> Estilos Musicais</div>
+          <div class="tag-group" id="estilos-group">
+            <label class="tag-check"><input type="checkbox" name="estilos" value="SAMBA"><span>SAMBA</span></label>
+            <label class="tag-check"><input type="checkbox" name="estilos" value="FORRÓ"><span>FORRÓ</span></label>
+            <label class="tag-check"><input type="checkbox" name="estilos" value="MPB"><span>MPB</span></label>
+            <label class="tag-check"><input type="checkbox" name="estilos" value="BOSSA"><span>BOSSA</span></label>
+            <label class="tag-check"><input type="checkbox" name="estilos" value="DISCO"><span>DISCO</span></label>
+            <label class="tag-check"><input type="checkbox" name="estilos" value="ELETRÔNICA"><span>ELETRÔNICA</span></label>
+            <label class="tag-check"><input type="checkbox" name="estilos" value="ROCK"><span>ROCK</span></label>
+            <label class="tag-check"><input type="checkbox" name="estilos" value="GOSPEL"><span>GOSPEL</span></label>
+            <label class="tag-check"><input type="checkbox" name="estilos" value="OUTRO"><span>OUTRO</span></label>
+          </div>
+        </div>
+
+        <!-- Serviços Extras -->
+        <div>
+          <div class="section-title"><i class="fas fa-microphone-alt text-green-700"></i> Serviços Extras</div>
+          <div class="tag-group" id="servicos-group">
+            <label class="tag-check"><input type="checkbox" name="servicos" value="SONORIZAÇÃO"><span>🔊 SONORIZAÇÃO</span></label>
+            <label class="tag-check"><input type="checkbox" name="servicos" value="PALCO"><span>🏗️ PALCO</span></label>
+            <label class="tag-check"><input type="checkbox" name="servicos" value="ILUMINAÇÃO"><span>💡 ILUMINAÇÃO</span></label>
+            <label class="tag-check"><input type="checkbox" name="servicos" value="DJ"><span>🎧 DJ</span></label>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-1"><i class="fas fa-pen-fancy mr-1 text-green-700"></i> Observações / Detalhes</label>
+          <textarea name="observacao" rows="3" placeholder="Repertório especial, horário de montagem, necessidades específicas, música para cerimônia..." class="input-modern w-full resize-none"></textarea>
+        </div>
+
+        <!-- Botões Ação com esquema preto/verde/branco -->
+        <div class="flex flex-wrap gap-3 pt-3">
+          <button type="button" onclick="enviarWhatsApp()" class="btn-wa text-white font-bold px-6 py-3 rounded-xl shadow-md transition-all flex-1 flex items-center justify-center gap-2"><i class="fab fa-whatsapp text-xl"></i> Enviar para NUNES PRODUÇÕES</button>
+          <button type="button" onclick="gerarPDF()" class="btn-pdf text-white font-semibold px-6 py-3 rounded-xl shadow-md transition-all flex-1 flex items-center justify-center gap-2"><i class="fas fa-file-pdf text-xl"></i> Gerar PDF / Imprimir</button>
+        </div>
+        <p class="text-xs text-gray-500 text-center mt-2 flex items-center justify-center gap-1"><i class="fas fa-shield-alt text-green-600"></i> Seus dados serão enviados com segurança para nossa equipe</p>
+      </form>
+    </div>
+
+    <!-- COLUNA DIREITA: VISUALIZAÇÃO DO RESUMO (prévia do orçamento) -->
+    <div class="glass-card p-6 md:p-7 shadow-2xl bg-white flex flex-col">
+      <div class="flex items-center gap-2 border-b border-gray-200 pb-3 mb-4">
+        <i class="fas fa-receipt text-green-700 text-2xl"></i>
+        <h2 class="text-2xl font-bold text-gray-800">Prévia do Orçamento</h2>
+        <span class="ml-auto text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">atualização em tempo real</span>
+      </div>
+      <div id="previewResumo" class="space-y-3 overflow-y-auto max-h-[70vh] pr-1">
+        <!-- Conteúdo preenchido dinamicamente -->
+        <div class="text-center text-gray-400 py-8 flex flex-col items-center gap-2">
+          <i class="fas fa-edit text-4xl opacity-40"></i>
+          <p>Preencha o formulário ao lado<br>e veja o resumo do pedido</p>
+        </div>
+      </div>
+      <div class="mt-4 pt-3 border-t border-dashed border-gray-200 flex justify-end no-print">
+        <button onclick="gerarPDF()" class="bg-gray-800 hover:bg-black text-white text-sm px-5 py-2 rounded-full flex items-center gap-2 transition"><i class="fas fa-print"></i> Imprimir resumo</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Rodapé com dados da empresa -->
+  <div class="text-center text-white/80 text-sm mt-8 no-print border-t border-green-700/30 pt-5">
+    <i class="fas fa-phone-alt mr-1"></i> <strong class="text-green-300">NUNES PRODUÇÕES</strong> | WhatsApp: (71) 98189-5439 | <i class="fas fa-envelope ml-2 mr-1"></i> contato@nunesproducoes.com.br<br>
+    <span class="text-xs text-green-200/70">Solicite seu orçamento musical com qualidade e profissionalismo</span>
+  </div>
+</div>
+
+<script>
+  // Função auxiliar para obter valores dos campos
+  function getFormDataForPreview() {
+    const form = document.getElementById('formOrcamento');
+    const dataSimples = {
+      nome: form.nome?.value || '',
+      celular: form.celular?.value || '',
+      whatsapp: form.whatsapp?.value || '',
+      email: form.email?.value || '',
+      data_do_evento: form.data_do_evento?.value || '',
+      hora_do_evento: form.hora_do_evento?.value || '',
+      local: form.local?.value || '',
+      endereco: form.endereco?.value || '',
+      observacao: form.observacao?.value || ''
+    };
+    
+    const formacaoSelecionada = Array.from(form.querySelectorAll('input[name="formacao"]:checked')).map(cb => cb.value);
+    const estilosSelecionados = Array.from(form.querySelectorAll('input[name="estilos"]:checked')).map(cb => cb.value);
+    const servicosSelecionados = Array.from(form.querySelectorAll('input[name="servicos"]:checked')).map(cb => cb.value);
+    
+    return { ...dataSimples, formacaoSelecionada, estilosSelecionados, servicosSelecionados };
+  }
+
+  // Atualizar prévia em tempo real
+  function updatePreview() {
+    const previewDiv = document.getElementById('previewResumo');
+    const dados = getFormDataForPreview();
+    
+    let dataFormatada = dados.data_do_evento;
+    if (dataFormatada) {
+      const [ano, mes, dia] = dataFormatada.split('-');
+      if (ano && mes && dia) dataFormatada = `${dia}/${mes}/${ano}`;
+    }
+    
+    const hasAnyData = dados.nome || dados.celular || dados.local || dados.formacaoSelecionada.length > 0 || dados.estilosSelecionados.length > 0;
+    
+    if (!hasAnyData && !dados.data_do_evento && !dados.hora_do_evento && !dados.observacao) {
+      previewDiv.innerHTML = `
+        <div class="text-center text-gray-400 py-8 flex flex-col items-center gap-2">
+          <i class="fas fa-edit text-4xl opacity-40"></i>
+          <p>Preencha o formulário ao lado<br>e veja o resumo do pedido</p>
+        </div>
+      `;
+      return;
+    }
+    
+    let html = `
+      <div class="bg-gradient-to-r from-green-50 to-white p-4 rounded-xl resumo-card shadow-sm">
+        <div class="flex justify-between items-start border-b border-green-200 pb-2 mb-3">
+          <h3 class="font-extrabold text-gray-800 text-lg"><i class="fas fa-user-check text-green-700 mr-1"></i> DADOS DO CLIENTE</h3>
+          <i class="fas fa-music text-green-600"></i>
+        </div>
+        <div class="grid grid-cols-2 gap-2 text-sm">
+          ${dados.nome ? `<div><span class="font-semibold">👤 Nome:</span> ${escapeHtml(dados.nome)}</div>` : ''}
+          ${dados.celular ? `<div><span class="font-semibold">📞 Celular:</span> ${escapeHtml(dados.celular)}</div>` : ''}
+          ${dados.whatsapp ? `<div><span class="font-semibold">💬 WhatsApp:</span> ${escapeHtml(dados.whatsapp)}</div>` : ''}
+          ${dados.email ? `<div><span class="font-semibold">✉️ Email:</span> ${escapeHtml(dados.email)}</div>` : ''}
+        </div>
+      </div>
+      
+      <div class="bg-white border border-gray-100 p-4 rounded-xl shadow-sm">
+        <h3 class="font-bold text-gray-700 flex items-center gap-2 mb-2"><i class="fas fa-calendar-check text-green-700"></i> INFORMAÇÕES DO EVENTO</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
+          ${dataFormatada ? `<div><span class="font-semibold">📅 Data:</span> ${dataFormatada}</div>` : ''}
+          ${dados.hora_do_evento ? `<div><span class="font-semibold">⏰ Hora:</span> ${dados.hora_do_evento}</div>` : ''}
+          ${dados.local ? `<div class="col-span-2"><span class="font-semibold">🏷️ Local:</span> ${escapeHtml(dados.local)}</div>` : ''}
+          ${dados.endereco ? `<div class="col-span-2"><span class="font-semibold">📍 Endereço:</span> ${escapeHtml(dados.endereco)}</div>` : ''}
+        </div>
+      </div>
+    `;
+    
+    if (dados.formacaoSelecionada.length) {
+      html += `
+        <div class="bg-white border border-gray-100 p-4 rounded-xl">
+          <h3 class="font-bold text-gray-700"><i class="fas fa-users mr-2 text-green-700"></i> Formação Musical</h3>
+          <div class="flex flex-wrap gap-2 mt-2">
+            ${dados.formacaoSelecionada.map(f => `<span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-semibold">${escapeHtml(f)}</span>`).join('')}
+          </div>
+        </div>
+      `;
+    }
+    
+    if (dados.estilosSelecionados.length) {
+      html += `
+        <div class="bg-white border border-gray-100 p-4 rounded-xl">
+          <h3 class="font-bold text-gray-700"><i class="fas fa-headphones mr-2 text-green-700"></i> Estilos Musicais</h3>
+          <div class="flex flex-wrap gap-2 mt-2">
+            ${dados.estilosSelecionados.map(e => `<span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-semibold">${escapeHtml(e)}</span>`).join('')}
+          </div>
+        </div>
+      `;
+    }
+    
+    if (dados.servicosSelecionados.length) {
+      html += `
+        <div class="bg-white border border-gray-100 p-4 rounded-xl">
+          <h3 class="font-bold text-gray-700"><i class="fas fa-cogs mr-2 text-green-700"></i> Serviços Extras</h3>
+          <div class="flex flex-wrap gap-2 mt-2">
+            ${dados.servicosSelecionados.map(s => `<span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-semibold">${escapeHtml(s)}</span>`).join('')}
+          </div>
+        </div>
+      `;
+    }
+    
+    if (dados.observacao) {
+      html += `
+        <div class="bg-green-50 border-l-4 border-green-600 p-3 rounded-r-xl text-sm">
+          <span class="font-bold block mb-1"><i class="fas fa-comment-dots text-green-700"></i> Observações:</span>
+          <p class="text-gray-700">${escapeHtml(dados.observacao)}</p>
+        </div>
+      `;
+    }
+    
+    html += `<div class="text-right text-xs text-gray-400 mt-2 border-t pt-2">📄 NUNES PRODUÇÕES • ${new Date().toLocaleString('pt-BR')}</div>`;
+    previewDiv.innerHTML = html;
+  }
+  
+  function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/[&<>]/g, function(m) {
+      if (m === '&') return '&amp;';
+      if (m === '<') return '&lt;';
+      if (m === '>') return '&gt;';
+      return m;
+    });
+  }
+  
+  // FUNÇÃO ENVIAR WHATSAPP COM TELEFONE DA EMPRESA: 71 981895439
+  function enviarWhatsApp() {
+    const form = document.getElementById('formOrcamento');
+    const dados = getFormDataForPreview();
+    
+    if (!dados.nome.trim()) {
+      alert('⚠️ Por favor, preencha o NOME do cliente para enviar o orçamento.');
+      return;
+    }
+    
+    // Formatação elegante para o WhatsApp da empresa NUNES PRODUÇÕES
+    let msg = '🎵 *NOVO ORÇAMENTO - NUNES PRODUÇÕES* 🎵%0A';
+    msg += '─────────────────────────%0A';
+    msg += `*👤 Cliente:* ${dados.nome || '—'}%0A`;
+    if (dados.celular) msg += `*📞 Celular:* ${dados.celular}%0A`;
+    if (dados.whatsapp) msg += `*📱 WhatsApp:* ${dados.whatsapp}%0A`;
+    if (dados.email) msg += `*✉️ E-mail:* ${dados.email}%0A`;
+    
+    let dataEvento = dados.data_do_evento ? dados.data_do_evento.split('-').reverse().join('/') : '—';
+    msg += `*📅 Data do Evento:* ${dataEvento}%0A`;
+    msg += `*⏰ Hora:* ${dados.hora_do_evento || '—'}%0A`;
+    msg += `*📍 Local:* ${dados.local || '—'}%0A`;
+    msg += `*🏠 Endereço:* ${dados.endereco || '—'}%0A`;
+    
+    msg += `%0A*🎸 Formação:* ${dados.formacaoSelecionada.length ? dados.formacaoSelecionada.join(', ') : 'Não informado'}%0A`;
+    msg += `*🎧 Estilos:* ${dados.estilosSelecionados.length ? dados.estilosSelecionados.join(', ') : 'Não informado'}%0A`;
+    msg += `*🔧 Serviços Extras:* ${dados.servicosSelecionados.length ? dados.servicosSelecionados.join(', ') : 'Nenhum'}%0A`;
+    
+    if (dados.observacao) {
+      msg += `%0A*📝 Observações:* ${dados.observacao}%0A`;
+    }
+    
+    msg += `─────────────────────────%0A`;
+    msg += `✅ *Solicitação enviada via site NUNES PRODUÇÕES*%0A`;
+    msg += `📞 Contato da empresa: (71) 98189-5439`;
+    
+    // NÚMERO DA EMPRESA: 5571981895439 (formato internacional)
+    const numeroEmpresa = '5571981895439';
+    const url = `https://wa.me/${numeroEmpresa}?text=${msg}`;
+    window.open(url, '_blank');
+  }
+  
+  // GERAR PDF COM ESTILO PRETO/VERDE/BRANCO
+  async function gerarPDF() {
+    updatePreview();
+    const dados = getFormDataForPreview();
+    if (!dados.nome && !dados.local && dados.formacaoSelecionada.length === 0 && !dados.data_do_evento) {
+      alert('Preencha pelo menos algumas informações antes de gerar o PDF.');
+      return;
+    }
+    
+    const dataEventoFormat = dados.data_do_evento ? dados.data_do_evento.split('-').reverse().join('/') : 'Não definida';
+    
+    const pdfContainer = document.createElement('div');
+    pdfContainer.style.backgroundColor = 'white';
+    pdfContainer.style.padding = '2rem';
+    pdfContainer.style.fontFamily = "'Inter', sans-serif";
+    pdfContainer.style.maxWidth = '800px';
+    pdfContainer.style.margin = '0 auto';
+    pdfContainer.style.borderRadius = '16px';
+    pdfContainer.innerHTML = `
+      <div style="text-align: center; margin-bottom: 25px; border-bottom: 3px solid #15803d; padding-bottom: 15px;">
+        <h1 style="color: #0f3b22; font-size: 28px; margin-bottom: 5px; letter-spacing: -0.5px;">🎵 NUNES PRODUÇÕES</h1>
+        <p style="color: #2d6a4f; font-weight: 500;">Orçamento Musical Profissional</p>
+        <p style="color: #6c757d; font-size: 12px;">Eventos que marcam época | (71) 98189-5439</p>
+      </div>
+      
+      <div style="margin-bottom: 24px;">
+        <h2 style="font-size: 1.3rem; color: #1f2937; border-left: 5px solid #15803d; padding-left: 12px;">Dados do Cliente</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; background: #f9fafb; padding: 12px; border-radius: 12px;">
+          <div><strong>👤 Nome:</strong> ${escapeHtml(dados.nome) || '—'}</div>
+          <div><strong>📞 Celular:</strong> ${escapeHtml(dados.celular) || '—'}</div>
+          <div><strong>💬 WhatsApp:</strong> ${escapeHtml(dados.whatsapp) || '—'}</div>
+          <div><strong>✉️ Email:</strong> ${escapeHtml(dados.email) || '—'}</div>
+        </div>
+      </div>
+      
+      <div style="margin-bottom: 24px;">
+        <h2 style="font-size: 1.3rem; color: #1f2937; border-left: 5px solid #15803d; padding-left: 12px;">Detalhes do Evento</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; background: #f9fafb; padding: 12px; border-radius: 12px;">
+          <div><strong>📅 Data:</strong> ${dataEventoFormat}</div>
+          <div><strong>⏰ Hora:</strong> ${escapeHtml(dados.hora_do_evento) || '—'}</div>
+          <div><strong>🏷️ Local:</strong> ${escapeHtml(dados.local) || '—'}</div>
+          <div><strong>📍 Endereço:</strong> ${escapeHtml(dados.endereco) || '—'}</div>
+        </div>
+      </div>
+      
+      <div style="margin-bottom: 20px; background: #f0fdf4; padding: 14px; border-radius: 16px;">
+        <div><strong style="color:#15803d;">🎸 Formação:</strong> ${dados.formacaoSelecionada.length ? dados.formacaoSelecionada.join(', ') : 'Não informado'}</div>
+        <div style="margin-top: 8px;"><strong style="color:#15803d;">🎧 Estilos:</strong> ${dados.estilosSelecionados.length ? dados.estilosSelecionados.join(', ') : 'Não informado'}</div>
+        <div style="margin-top: 8px;"><strong style="color:#15803d;">🔧 Serviços Extras:</strong> ${dados.servicosSelecionados.length ? dados.servicosSelecionados.join(', ') : 'Nenhum'}</div>
+      </div>
+      
+      ${dados.observacao ? `<div style="background:#fef9e3; padding: 12px; border-radius: 12px; margin-bottom: 20px;"><strong>📌 Observações:</strong><br>${escapeHtml(dados.observacao)}</div>` : ''}
+      
+      <div style="margin-top: 30px; font-size: 11px; color: #6c757d; text-align: center; border-top: 1px solid #e9ecef; padding-top: 15px;">
+        Documento gerado automaticamente • NUNES PRODUÇÕES • ${new Date().toLocaleString('pt-BR')}<br>
+        Entre em contato: (71) 98189-5439 | contato@nunesproducoes.com.br
+      </div>
+    `;
+    
+    const opt = {
+      margin: [0.5, 0.5, 0.5, 0.5],
+      filename: `orcamento_nunes_${dados.nome.replace(/\s/g, '_') || 'cliente'}.pdf`,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, letterRendering: true },
+      jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+    };
+    html2pdf().set(opt).from(pdfContainer).save();
+  }
+  
+  // Event listeners para atualização em tempo real
+  const formElem = document.getElementById('formOrcamento');
+  const allInputs = formElem.querySelectorAll('input, textarea');
+  allInputs.forEach(input => {
+    input.addEventListener('change', updatePreview);
+    input.addEventListener('keyup', updatePreview);
+  });
+  const checkGroups = ['formacao', 'estilos', 'servicos'];
+  checkGroups.forEach(group => {
+    const checks = document.querySelectorAll(`input[name="${group}"]`);
+    checks.forEach(ch => ch.addEventListener('change', updatePreview));
+  });
+  
+  updatePreview();
+</script>
+</body>
+</html>
